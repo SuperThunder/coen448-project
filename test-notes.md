@@ -13,7 +13,7 @@ Commands:
 - Q
 
 Assert the correct value in getCommand and getValue
-
+Test lower and upper case commands
 
 ## User input functionality (invalid cases)
 - M or I but no number (Invalid)
