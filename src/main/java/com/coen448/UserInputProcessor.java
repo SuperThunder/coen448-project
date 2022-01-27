@@ -111,7 +111,7 @@ public class UserInputProcessor {
             {
                 com_value = Integer.parseInt(tokens[1]);
                 logger.log(Level.INFO, "Command int param: " + Integer.toString(com_value));
-                if(com_value < 0)
+                if(com_value < 1)
                 {
                     System.out.println("Error: Parameter to M or I must be positive: " + Integer.toString(com_value));
                     com = UserCommand.Invalid;
@@ -126,5 +126,13 @@ public class UserInputProcessor {
                 return;
             }
         }
+
+        //Not move or init but still got more than one argument (eg user put in L 5)
+        else if(tokens.length > 1)
+        {
+            String[] extra_tokens = Arrays.copyOfRange(tokens, 1, tokens.length);
+            System.out.println("Warn: Ignoring extra input \"" + String.join(" ", extra_tokens) + "\"");
+        }
+
     }
 }
