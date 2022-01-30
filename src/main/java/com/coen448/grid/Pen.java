@@ -6,26 +6,12 @@ import com.google.common.collect.HashBiMap;
 import java.util.HashMap;
 
 public class Pen {
-    protected enum State{
-        UP,
-        DOWN
-    }
-
-    protected enum Direction {
-        NORTH,
-        EAST,
-        SOUTH,
-        WEST
-    }
-
+    private final Integer[] currentPos;
     private State state;
-    private Integer[] currentPos;
     private Direction currentDir;
     private char arrow;
-
     private BiMap<Integer, Direction> directionMap;
     private HashMap<Pen.Direction, Character> directionArrows;
-
 
     public Pen() {
         initDirections();
@@ -55,8 +41,6 @@ public class Pen {
         this.currentDir = currentDir;
     }
 
-
-
     public void setArrow(char arrow) {
         this.arrow = arrow;
     }
@@ -65,14 +49,11 @@ public class Pen {
         return directionMap;
     }
 
-
     public HashMap<Direction, Character> getDirectionArrows() {
         return directionArrows;
     }
 
-
-
-    private void initDirections(){
+    private void initDirections() {
         directionMap = HashBiMap.create();
         directionMap.put(1, Pen.Direction.NORTH);
         directionMap.put(2, Pen.Direction.EAST);
@@ -86,9 +67,22 @@ public class Pen {
         directionArrows.put(Pen.Direction.WEST, '\u2190');
     }
 
-    public void printPen(){
+    public void printPen() {
         System.out.printf("Position: %d, %d - Pen: %s - Facing: %s \n",
                 currentPos[1], currentPos[0], state.name(), currentDir.name());
+    }
+
+
+    protected enum State {
+        UP,
+        DOWN
+    }
+
+    protected enum Direction {
+        NORTH,
+        EAST,
+        SOUTH,
+        WEST
     }
 
 }

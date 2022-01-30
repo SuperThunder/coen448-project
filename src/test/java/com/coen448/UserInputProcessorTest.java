@@ -9,7 +9,7 @@ class UserInputProcessorTest {
     @Test
     void MoveCommand() {
         for(int i = 1; i < 10; i++) {
-            UserInputProcessor u = new UserInputProcessor("M " + Integer.toString(i));
+            UserInputProcessor u = new UserInputProcessor("M " + i);
             assertEquals(u.getCommand(), UserCommand.Move);
             assertEquals(u.getValue(), i);
         }
@@ -52,7 +52,7 @@ class UserInputProcessorTest {
     void InitializeCommand()
     {
         for(int i = 1; i < 10; i++) {
-            UserInputProcessor u = new UserInputProcessor("I " + Integer.toString(i));
+            UserInputProcessor u = new UserInputProcessor("I " + i);
             assertEquals(u.getCommand(), UserCommand.Initialize);
             assertEquals(u.getValue(), i);
         }
@@ -125,7 +125,7 @@ class UserInputProcessorTest {
     void MorINegativeNumber()
     {
         for(int i = 1; i < 10; i++) {
-            UserInputProcessor u = new UserInputProcessor("I -" + Integer.toString(i));
+            UserInputProcessor u = new UserInputProcessor("I -" + i);
             assertEquals(u.getCommand(), UserCommand.Invalid);
         }
     }
