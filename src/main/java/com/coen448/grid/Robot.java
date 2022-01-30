@@ -2,8 +2,8 @@ package com.coen448.grid;
 
 
 public class Robot {
-    private Pen pen;
-    private Floor floor;
+    private final Pen pen;
+    private final Floor floor;
 
     public Robot(Floor floor) {
         pen = new Pen();
@@ -95,25 +95,11 @@ public class Robot {
         for (int i = floor.getSize() - 1; i >= 0; i--) {
             System.out.printf("%-4d", i);
             for (int j = 0; j < floor.getSize(); j++) {
-
-                // To Print Arrow uncomment below code and comment lines 101-105
-                /* if((i == pen.getCurrentPos()[0]) && (j == pen.getCurrentPos()[1])){
-                    System.out.printf("%-4c", pen.getArrow());
-                }else {
-                    Boolean temp = floor.getFloor().get(i).get(j);
-                    if (temp)
-                        System.out.printf("%-4s", "*");
-                    else
-                        System.out.printf("%-4d", 0);
-                }*/
-
                 Boolean temp = floor.getFloor().get(i).get(j);
                 if (temp)
                     System.out.printf("%-4s", "*");
                 else
                     System.out.printf("%-4s", " ");
-
-
             }
             System.out.println();
         }

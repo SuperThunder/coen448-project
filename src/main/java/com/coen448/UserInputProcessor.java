@@ -1,42 +1,39 @@
 package com.coen448;
+
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
 public class UserInputProcessor {
+    static Logger logger = Logger.getLogger(UserInputProcessor.class.getName());
     private UserCommand com;
     private int com_value = -1;
-    static Logger logger = Logger.getLogger(UserInputProcessor.class.getName());
 
-    public UserInputProcessor(String inputline)
-    {
+    public UserInputProcessor(String inputline) {
         logger.log(Level.INFO, "UserInputProcessor constructor got input: " + inputline);
 
         processLine(inputline);
 
     }
 
-    public UserCommand getCommand()
-    {
+    public UserCommand getCommand() {
         return com;
     }
 
     //Get value for Move and Initialize commands
     //Returns -1 for all other commands
-    public int getValue()
-    {
+    public int getValue() {
         return com_value;
     }
 
     //process the input line
-    private void processLine(String inputline)
-    {
+    private void processLine(String inputline) {
         //process the string and set the com values
         //leading/trailing whitespace removed, all internal spaces replaced with single space
         String[] tokens = inputline.trim().replaceAll("\\s+", " ").split(" ");
 
-        logger.log(Level.INFO, "Got tokens: " + String.join( " / ", tokens));
+        logger.log(Level.INFO, "Got tokens: " + String.join(" / ", tokens));
 
         //Check what kind of input received
         switch (tokens[0].toUpperCase()) {
@@ -90,46 +87,36 @@ public class UserInputProcessor {
         }
 
         //Ignore anything after the 2nd token
-        if(tokens.length > 2)
-        {
+        if (tokens.length > 2) {
             String[] extra_tokens = Arrays.copyOfRange(tokens, 2, tokens.length);
             System.out.println("Warn: Ignoring extra input \"" + String.join(" ", extra_tokens) + "\"");
         }
 
         //if a Move or Init command, set the command integer value too
-        if(tokens[0].toUpperCase().equals("M") || tokens[0].toUpperCase().equals("I"))
-        {
+        if (tokens[0].equalsIgnoreCase("M") || tokens[0].equalsIgnoreCase("I")) {
             //No second token for length encountered
-            if(tokens.length <= 1)
-            {
+            if (tokens.length <= 1) {
                 System.out.println("Error: Expected non-negative integer parameter for " + tokens[0] + " command, none encountered");
                 com = UserCommand.Invalid;
                 return;
             }
 
-            try
-            {
+            try {
                 com_value = Integer.parseInt(tokens[1]);
-                logger.log(Level.INFO, "Command int param: " + Integer.toString(com_value));
-                if(com_value < 1)
-                {
-                    System.out.println("Error: Parameter to M or I must be positive: " + Integer.toString(com_value));
+                logger.log(Level.INFO, "Command int param: " + com_value);
+                if (com_value < 1) {
+                    System.out.println("Error: Parameter to M or I must be positive: " + com_value);
                     com = UserCommand.Invalid;
-                    return;
                 }
-            }
-            catch(NumberFormatException e)
-            {
+            } catch (NumberFormatException e) {
                 System.out.println("Error: Invalid number for M or I: " + tokens[1]);
                 com = UserCommand.Invalid;
                 com_value = -1;
-                return;
             }
         }
 
         //Not move or init but still got more than one argument (eg user put in L 5)
-        else if(tokens.length > 1)
-        {
+        else if (tokens.length > 1) {
             String[] extra_tokens = Arrays.copyOfRange(tokens, 1, tokens.length);
             System.out.println("Warn: Ignoring extra input \"" + String.join(" ", extra_tokens) + "\"");
         }

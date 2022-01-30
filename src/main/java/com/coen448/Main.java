@@ -16,8 +16,8 @@ package com.coen448;
 import com.coen448.grid.Controller;
 
 import java.util.Scanner;
-import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main {
     static Logger logger = Logger.getLogger(Main.class.getName());
@@ -30,7 +30,7 @@ public class Main {
         Controller controller = new Controller();
 
         //Loop for user command input
-        while(true) {
+        while (true) {
             //Get the input as a simple string to the end of the line
             System.out.println("Please enter a command:\n");
             String input = stdin.nextLine();
@@ -42,7 +42,7 @@ public class Main {
 
             //CALL GRID / ROBOT CODE FROM HERE
             //Check what kind of input received
-            switch(userInput.getCommand()) {
+            switch (userInput.getCommand()) {
                 //Move
                 case Move:
                     controller.move(userInput.getValue());
