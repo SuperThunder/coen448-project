@@ -1,6 +1,6 @@
 //COEN448 Project
 //Alexander Wolfe 40103773
-//Ahmed Ali
+//Ahmed Ali 40102454
 
 //Tools used:
 //Java 11
@@ -13,6 +13,8 @@
 
 package com.coen448;
 
+import com.coen448.grid.Controller;
+
 import java.util.Scanner;
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -20,11 +22,12 @@ import java.util.logging.Level;
 public class Main {
     static Logger logger = Logger.getLogger(Main.class.getName());
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         System.out.println("COEN448 Project");
 
         Scanner stdin = new Scanner(System.in);
         //INSTANTIATE GRID / ROBOT OBJECTS HERE
+        Controller controller = new Controller();
 
         //Loop for user command input
         while(true) {
@@ -33,51 +36,51 @@ public class Main {
             String input = stdin.nextLine();
 
             //Send that to a new processor object that tells us what kind of input we received
-            UserInputProcessor userinput = new UserInputProcessor(input);
+            UserInputProcessor userInput = new UserInputProcessor(input);
 
-            logger.log(Level.INFO, "main got user command: " + userinput.getCommand().toString());
+            logger.log(Level.INFO, "main got user command: " + userInput.getCommand().toString());
 
             //CALL GRID / ROBOT CODE FROM HERE
             //Check what kind of input received
-            switch(userinput.getCommand()) {
+            switch(userInput.getCommand()) {
                 //Move
                 case Move:
-
+                    controller.move(userInput.getValue());
                     break;
 
                 //Left
                 case Left:
-
+                    controller.left();
                     break;
 
                 //Right
                 case Right:
-
+                    controller.right();
                     break;
 
                 //Print the grid
                 case PrintGrid:
-
+                    controller.printGrid();
                     break;
 
                 //Initialize
                 case Initialize:
-
+                    controller.initialize(userInput.getValue());
                     break;
 
                 //Up (pen)
                 case Up:
-
+                    controller.up();
                     break;
 
                 //Down (pen)
                 case Down:
-
+                    controller.down();
                     break;
 
                 //Print pen position and status, robot facing direction
                 case PrintPen:
-
+                    controller.printPen();
                     break;
 
                 //Stop Program
