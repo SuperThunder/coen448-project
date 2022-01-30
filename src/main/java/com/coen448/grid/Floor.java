@@ -8,10 +8,9 @@ public class Floor {
 
     public Floor(Integer size) throws Exception {
         this.size = size;
-        if (size < 1) throw new Exception("Board size has to be an integer larger than 1");
+        if (size < 1) throw new Exception("Board size has to be an integer larger than 0");
         floor = new ArrayList<>(size);
         initFloor();
-        System.out.println("Floor Initialized");
     }
 
     private void initFloor() {

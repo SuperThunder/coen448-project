@@ -80,7 +80,7 @@ public class Main {
 
                 //Print pen position and status, robot facing direction
                 case PrintPen:
-                    controller.printPen();
+                    System.out.println(controller.printPen());
                     break;
 
                 //Stop Program

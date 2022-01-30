@@ -10,12 +10,16 @@ public class Robot {
         this.floor = floor;
     }
 
+    public Floor getFloor() {
+        return floor;
+    }
+
     public void move(Integer s) {
         boolean endOfPath = false;
         draw();
         while (s > 0) {
             if (endOfPath) {
-                System.out.println("End of floor, cannot move " + s + " step(s)");
+                //System.out.println("End of floor, cannot move " + s + " step(s)");
                 break;
             } else {
                 draw();

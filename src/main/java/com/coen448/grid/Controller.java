@@ -32,7 +32,12 @@ public class Controller {
         robot.getPen().setState(Pen.State.DOWN);
     }
 
-    public void printPen() {
-        robot.getPen().printPen();
+    public String printPen() {
+        return robot.getPen().printPen();
     }
+
+    public Robot getRobot() {
+        return robot;
+    }
+
 }
