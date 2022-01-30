@@ -67,8 +67,8 @@ public class Pen {
         directionArrows.put(Pen.Direction.WEST, '\u2190');
     }
 
-    public void printPen() {
-        System.out.printf("Position: %d, %d - Pen: %s - Facing: %s \n",
+    public String printPen() {
+        return String.format("Position: %d, %d - Pen: %s - Facing: %s \n",
                 currentPos[1], currentPos[0], state.name(), currentDir.name());
     }
 
