@@ -43,6 +43,7 @@
                             <mainClass>com.coen448.Main</mainClass>
                         </manifest>
                     </archive>
+                    <finalName>coen448_robotgrid</finalName>
                 </configuration>
             </plugin>
 
