@@ -32,13 +32,17 @@ public class Main {
         //Loop for user command input
         while (true) {
             //Get the input as a simple string to the end of the line
-            System.out.println("Please enter a command:\n");
+            System.out.println("Please enter a command: ");
             String input = stdin.nextLine();
 
             //Send that to a new processor object that tells us what kind of input we received
             UserInputProcessor userInput = new UserInputProcessor(input);
 
-            logger.log(Level.INFO, "main got user command: " + userInput.getCommand().toString());
+            if(userInput.getCommand() == UserCommand.Initialize || userInput.getCommand() == UserCommand.Move)
+                logger.log(Level.INFO, "main got user command: " + userInput.getCommand().toString() + " " + userInput.getValue());
+            else {
+                logger.log(Level.INFO, "main got user command: " + userInput.getCommand().toString());
+            }
 
             //CALL GRID / ROBOT CODE FROM HERE
             //Check what kind of input received

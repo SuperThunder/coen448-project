@@ -11,7 +11,7 @@ public class UserInputProcessor {
     private int com_value = -1;
 
     public UserInputProcessor(String inputline) {
-        logger.log(Level.INFO, "UserInputProcessor constructor got input: " + inputline);
+        //logger.log(Level.INFO, "UserInputProcessor constructor got input: " + inputline);
 
         processLine(inputline);
 
@@ -33,7 +33,7 @@ public class UserInputProcessor {
         //leading/trailing whitespace removed, all internal spaces replaced with single space
         String[] tokens = inputline.trim().replaceAll("\\s+", " ").split(" ");
 
-        logger.log(Level.INFO, "Got tokens: " + String.join(" / ", tokens));
+        //logger.log(Level.INFO, "Got tokens: " + String.join(" / ", tokens));
 
         //Check what kind of input received
         switch (tokens[0].toUpperCase()) {
@@ -103,7 +103,7 @@ public class UserInputProcessor {
 
             try {
                 com_value = Integer.parseInt(tokens[1]);
-                logger.log(Level.INFO, "Command int param: " + com_value);
+                //logger.log(Level.INFO, "Command int param: " + com_value);
                 if (com_value < 1) {
                     System.out.println("Error: Parameter to M or I must be positive: " + com_value);
                     com = UserCommand.Invalid;
