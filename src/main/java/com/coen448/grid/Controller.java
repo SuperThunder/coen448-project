@@ -3,9 +3,9 @@ package com.coen448.grid;
 public class Controller {
     private Robot robot;
 
-//    public Controller() throws Exception {
-//        this.robot = new Robot(new Floor(1));
-//    }
+    public Controller() throws Exception {
+        this.robot = new Robot(new Floor(1));
+    }
 
     public void initialize(Integer size) throws Exception {
         Floor floor = new Floor(size);
