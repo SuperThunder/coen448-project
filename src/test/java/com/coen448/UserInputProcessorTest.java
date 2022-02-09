@@ -49,6 +49,16 @@ class UserInputProcessorTest {
     }
 
     @Test
+    void StopCommand()
+    {
+        UserInputProcessor u = new UserInputProcessor("Q");
+        assertEquals(u.getCommand(), UserCommand.Stop);
+
+        u = new UserInputProcessor("q");
+        assertEquals(u.getCommand(), UserCommand.Stop);
+    }
+
+    @Test
     void InitializeCommand()
     {
         for(int i = 1; i < 10; i++) {
