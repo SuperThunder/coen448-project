@@ -95,7 +95,7 @@ public class Robot {
         }
     }
 
-    public void printFloor() {
+    /*public void printFloor() {
         for (int i = floor.getSize() - 1; i >= 0; i--) {
             System.out.printf("%-4d", i);
             for (int j = 0; j < floor.getSize(); j++) {
@@ -114,6 +114,27 @@ public class Robot {
         }
 
         System.out.println();
+    }*/
+
+    public String printFloor(){
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = floor.getSize() - 1; i >= 0; i--) {
+            stringBuilder.append(String.format("%-4d", i));
+            for (int j = 0; j < floor.getSize(); j++) {
+                Boolean temp = floor.getFloor().get(i).get(j);
+                if (temp)
+                    stringBuilder.append(String.format("%-4s", "*"));
+                else
+                    stringBuilder.append(String.format("%-4s", " "));
+            }
+            stringBuilder.append("\n");
+        }
+        stringBuilder.append(String.format("%4s", ""));
+        for (int i = 0; i < floor.getSize(); i++) {
+            stringBuilder.append(String.format("%-4d", i));
+        }
+        stringBuilder.append("\n");
+        return stringBuilder.toString();
     }
 
     public Pen getPen() {

@@ -5,6 +5,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -228,7 +231,40 @@ class ControllerTest {
 
     @Test
     void printGrid() {
-        controller.printGrid();
+
+        // Empty Grid
+        String gridDisplay = controller.printGrid();
+        String expected =
+                "9                                           \n" +
+                "8                                           \n" +
+                "7                                           \n" +
+                "6                                           \n" +
+                "5                                           \n" +
+                "4                                           \n" +
+                "3                                           \n" +
+                "2                                           \n" +
+                "1                                           \n" +
+                "0                                           \n" +
+                "    0   1   2   3   4   5   6   7   8   9   \n";
+        assertEquals(expected, gridDisplay);
+
+        //Grid with movement
+        controller.down();
+        controller.move(9);
+        gridDisplay = controller.printGrid();
+        expected =
+                "9   *                                       \n" +
+                "8   *                                       \n" +
+                "7   *                                       \n" +
+                "6   *                                       \n" +
+                "5   *                                       \n" +
+                "4   *                                       \n" +
+                "3   *                                       \n" +
+                "2   *                                       \n" +
+                "1   *                                       \n" +
+                "0   *                                       \n" +
+                "    0   1   2   3   4   5   6   7   8   9   \n";
+        assertEquals(expected,gridDisplay);
     }
 
     @Test
