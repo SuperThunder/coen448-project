@@ -228,7 +228,8 @@ class ControllerTest {
 
     @Test
     void printGrid() {
-        controller.printGrid();
+        String gridDisplay = controller.printGrid();
+        System.out.println(gridDisplay);
     }
 
     @Test

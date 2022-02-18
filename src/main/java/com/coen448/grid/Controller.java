@@ -24,8 +24,10 @@ public class Controller {
         robot.turn('r');
     }
 
-    public void printGrid() {
-        robot.printFloor();
+    public String printGrid() {
+        String gridDisplay = robot.printFloor();
+        System.out.println(gridDisplay);
+        return gridDisplay;
     }
 
     public void up() {
