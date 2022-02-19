@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserInputProcessor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">All Tests Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.coen448</a> &gt; <span class="el_source">UserInputProcessor.java</span></div><h1>UserInputProcessor.java</h1><pre class="source lang-java linenums">package com.coen448;
+
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+public class UserInputProcessor {
+<span class="fc" id="L9">    static Logger logger = Logger.getLogger(UserInputProcessor.class.getName());</span>
+    private UserCommand com;
+<span class="fc" id="L11">    private int com_value = -1;</span>
+
+<span class="fc" id="L13">    public UserInputProcessor(String inputline) {</span>
+        //logger.log(Level.INFO, &quot;UserInputProcessor constructor got input: &quot; + inputline);
+
+<span class="fc" id="L16">        processLine(inputline);</span>
+
+<span class="fc" id="L18">    }</span>
+
+    public UserCommand getCommand() {
+<span class="fc" id="L21">        return com;</span>
+    }
+
+    //Get value for Move and Initialize commands
+    //Returns -1 for all other commands
+    public int getValue() {
+<span class="fc" id="L27">        return com_value;</span>
+    }
+
+    //process the input line
+    private void processLine(String inputline) {
+        //process the string and set the com values
+        //leading/trailing whitespace removed, all internal spaces replaced with single space
+<span class="fc" id="L34">        String[] tokens = inputline.trim().replaceAll(&quot;\\s+&quot;, &quot; &quot;).split(&quot; &quot;);</span>
+
+        //logger.log(Level.INFO, &quot;Got tokens: &quot; + String.join(&quot; / &quot;, tokens));
+
+        //Check what kind of input received
+<span class="pc bpc" id="L39" title="1 of 10 branches missed.">        switch (tokens[0].toUpperCase()) {</span>
+            //Move
+            case &quot;M&quot;:
+<span class="fc" id="L42">                com = UserCommand.Move;</span>
+<span class="fc" id="L43">                break;</span>
+            //Left
+            case &quot;L&quot;:
+<span class="fc" id="L46">                com = UserCommand.Left;</span>
+<span class="fc" id="L47">                break;</span>
+            //Right
+            case &quot;R&quot;:
+<span class="fc" id="L50">                com = UserCommand.Right;</span>
+<span class="fc" id="L51">                break;</span>
+
+            //Print the grid
+            case &quot;P&quot;:
+<span class="fc" id="L55">                com = UserCommand.PrintGrid;</span>
+<span class="fc" id="L56">                break;</span>
+
+            //Initialize
+            case &quot;I&quot;:
+<span class="fc" id="L60">                com = UserCommand.Initialize;</span>
+<span class="fc" id="L61">                break;</span>
+
+            //Up (pen)
+            case &quot;U&quot;:
+<span class="fc" id="L65">                com = UserCommand.Up;</span>
+<span class="fc" id="L66">                break;</span>
+
+            //Down (pen)
+            case &quot;D&quot;:
+<span class="fc" id="L70">                com = UserCommand.Down;</span>
+<span class="fc" id="L71">                break;</span>
+
+            //Print pen position and status, robot facing direction
+            case &quot;C&quot;:
+<span class="fc" id="L75">                com = UserCommand.PrintPen;</span>
+<span class="fc" id="L76">                break;</span>
+
+            //Stop program
+            case &quot;Q&quot;:
+<span class="nc" id="L80">                com = UserCommand.Stop;</span>
+<span class="nc" id="L81">                break;</span>
+
+            default:
+<span class="fc" id="L84">                System.out.println(&quot;Error: Unknown command: &quot; + tokens[0]);</span>
+<span class="fc" id="L85">                com = UserCommand.Unknown;</span>
+<span class="fc" id="L86">                return;</span>
+        }
+
+        //Ignore anything after the 2nd token
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">        if (tokens.length &gt; 2) {</span>
+<span class="nc" id="L91">            String[] extra_tokens = Arrays.copyOfRange(tokens, 2, tokens.length);</span>
+<span class="nc" id="L92">            System.out.println(&quot;Warn: Ignoring extra input \&quot;&quot; + String.join(&quot; &quot;, extra_tokens) + &quot;\&quot;&quot;);</span>
+        }
+
+        //if a Move or Init command, set the command integer value too
+<span class="fc bfc" id="L96" title="All 4 branches covered.">        if (tokens[0].equalsIgnoreCase(&quot;M&quot;) || tokens[0].equalsIgnoreCase(&quot;I&quot;)) {</span>
+            //No second token for length encountered
+<span class="fc bfc" id="L98" title="All 2 branches covered.">            if (tokens.length &lt;= 1) {</span>
+<span class="fc" id="L99">                System.out.println(&quot;Error: Expected non-negative integer parameter for &quot; + tokens[0] + &quot; command, none encountered&quot;);</span>
+<span class="fc" id="L100">                com = UserCommand.Invalid;</span>
+<span class="fc" id="L101">                return;</span>
+            }
+
+            try {
+<span class="fc" id="L105">                com_value = Integer.parseInt(tokens[1]);</span>
+                //logger.log(Level.INFO, &quot;Command int param: &quot; + com_value);
+<span class="fc bfc" id="L107" title="All 2 branches covered.">                if (com_value &lt; 1) {</span>
+<span class="fc" id="L108">                    System.out.println(&quot;Error: Parameter to M or I must be positive: &quot; + com_value);</span>
+<span class="fc" id="L109">                    com = UserCommand.Invalid;</span>
+                }
+<span class="fc" id="L111">            } catch (NumberFormatException e) {</span>
+<span class="fc" id="L112">                System.out.println(&quot;Error: Invalid number for M or I: &quot; + tokens[1]);</span>
+<span class="fc" id="L113">                com = UserCommand.Invalid;</span>
+<span class="fc" id="L114">                com_value = -1;</span>
+<span class="fc" id="L115">            }</span>
+        }
+
+        //Not move or init but still got more than one argument (eg user put in L 5)
+<span class="pc bpc" id="L119" title="1 of 2 branches missed.">        else if (tokens.length &gt; 1) {</span>
+<span class="nc" id="L120">            String[] extra_tokens = Arrays.copyOfRange(tokens, 1, tokens.length);</span>
+<span class="nc" id="L121">            System.out.println(&quot;Warn: Ignoring extra input \&quot;&quot; + String.join(&quot; &quot;, extra_tokens) + &quot;\&quot;&quot;);</span>
+        }
+
+<span class="fc" id="L124">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

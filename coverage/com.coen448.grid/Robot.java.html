@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Robot.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">All Tests Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.coen448.grid</a> &gt; <span class="el_source">Robot.java</span></div><h1>Robot.java</h1><pre class="source lang-java linenums">package com.coen448.grid;
+
+
+public class Robot {
+    private final Pen pen;
+    private final Floor floor;
+
+<span class="fc" id="L8">    public Robot(Floor floor) {</span>
+<span class="fc" id="L9">        pen = new Pen();</span>
+<span class="fc" id="L10">        this.floor = floor;</span>
+<span class="fc" id="L11">    }</span>
+
+    public Floor getFloor() {
+<span class="fc" id="L14">        return floor;</span>
+    }
+
+    public void move(Integer s) {
+<span class="fc" id="L18">        boolean endOfPath = false;</span>
+<span class="fc" id="L19">        draw();</span>
+<span class="fc bfc" id="L20" title="All 2 branches covered.">        while (s &gt; 0) {</span>
+<span class="fc bfc" id="L21" title="All 2 branches covered.">            if (endOfPath) {</span>
+                //System.out.println(&quot;End of floor, cannot move &quot; + s + &quot; step(s)&quot;);
+<span class="fc" id="L23">                break;</span>
+            } else {
+<span class="fc" id="L25">                draw();</span>
+<span class="pc bpc" id="L26" title="1 of 5 branches missed.">                switch (pen.getCurrentDir()) {</span>
+                    case NORTH:
+<span class="fc bfc" id="L28" title="All 2 branches covered.">                        if (pen.getCurrentPos()[0] &lt; floor.getSize() - 1) {</span>
+<span class="fc" id="L29">                            pen.getCurrentPos()[0]++;</span>
+                        } else {
+<span class="fc" id="L31">                            endOfPath = true;</span>
+                        }
+<span class="fc" id="L33">                        break;</span>
+                    case EAST:
+<span class="fc bfc" id="L35" title="All 2 branches covered.">                        if (pen.getCurrentPos()[1] &lt; floor.getSize() - 1) {</span>
+<span class="fc" id="L36">                            pen.getCurrentPos()[1]++;</span>
+                        } else {
+<span class="fc" id="L38">                            endOfPath = true;</span>
+                        }
+<span class="fc" id="L40">                        break;</span>
+                    case SOUTH:
+<span class="fc bfc" id="L42" title="All 2 branches covered.">                        if (pen.getCurrentPos()[0] &gt; 0) {</span>
+<span class="fc" id="L43">                            pen.getCurrentPos()[0]--;</span>
+                        } else {
+<span class="fc" id="L45">                            endOfPath = true;</span>
+                        }
+<span class="fc" id="L47">                        break;</span>
+                    case WEST:
+<span class="fc bfc" id="L49" title="All 2 branches covered.">                        if (pen.getCurrentPos()[1] &gt; 0) {</span>
+<span class="fc" id="L50">                            pen.getCurrentPos()[1]--;</span>
+                        } else {
+<span class="fc" id="L52">                            endOfPath = true;</span>
+                        }
+<span class="fc" id="L54">                        break;</span>
+                    default:
+<span class="nc" id="L56">                        throw new IllegalStateException(&quot;Unexpected value: &quot; + pen.getCurrentDir());</span>
+                }
+<span class="fc" id="L58">                s--;</span>
+            }
+        }
+<span class="fc" id="L61">        draw();</span>
+<span class="fc" id="L62">    }</span>
+
+    public void turn(Character dir) throws Exception {
+<span class="fc" id="L65">        int key = pen.getDirectionMap().inverse().get(pen.getCurrentDir());</span>
+<span class="pc bpc" id="L66" title="1 of 3 branches missed.">        switch (dir) {</span>
+            case 'r':
+            case 'R':
+<span class="fc bfc" id="L69" title="All 2 branches covered.">                if (key &lt; 4) {</span>
+<span class="fc" id="L70">                    key++;</span>
+<span class="fc" id="L71">                    pen.setCurrentDir(pen.getDirectionMap().get(key));</span>
+                } else {
+<span class="fc" id="L73">                    pen.setCurrentDir(pen.getDirectionMap().get(1));</span>
+                }
+<span class="fc" id="L75">                break;</span>
+            case 'l':
+            case 'L':
+<span class="fc bfc" id="L78" title="All 2 branches covered.">                if (key &gt; 1) {</span>
+<span class="fc" id="L79">                    key--;</span>
+<span class="fc" id="L80">                    pen.setCurrentDir(pen.getDirectionMap().get(key));</span>
+                } else {
+<span class="fc" id="L82">                    pen.setCurrentDir(pen.getDirectionMap().get(4));</span>
+                }
+<span class="fc" id="L84">                break;</span>
+            default:
+<span class="nc" id="L86">                throw new Exception(&quot;Turning direction is either Left or Right&quot;);</span>
+        }
+<span class="fc" id="L88">        pen.setArrow(pen.getDirectionArrows().get(pen.getCurrentDir()));</span>
+<span class="fc" id="L89">    }</span>
+
+    private void draw() {
+<span class="fc bfc" id="L92" title="All 2 branches covered.">        if (pen.getState().equals(Pen.State.DOWN)) {</span>
+<span class="fc" id="L93">            floor.getFloor().get(pen.getCurrentPos()[0]).set(pen.getCurrentPos()[1], Boolean.TRUE);</span>
+<span class="fc" id="L94">            floor.setFloor(floor.getFloor());</span>
+        }
+<span class="fc" id="L96">    }</span>
+
+    /*public void printFloor() {
+        for (int i = floor.getSize() - 1; i &gt;= 0; i--) {
+            System.out.printf(&quot;%-4d&quot;, i);
+            for (int j = 0; j &lt; floor.getSize(); j++) {
+                Boolean temp = floor.getFloor().get(i).get(j);
+                if (temp)
+                    System.out.printf(&quot;%-4s&quot;, &quot;*&quot;);
+                else
+                    System.out.printf(&quot;%-4s&quot;, &quot; &quot;);
+            }
+            System.out.println();
+        }
+
+        System.out.printf(&quot;%4s&quot;, &quot;&quot;);
+        for (int i = 0; i &lt; floor.getSize(); i++) {
+            System.out.printf(&quot;%-4d&quot;, i);
+        }
+
+        System.out.println();
+    }*/
+
+    public String printFloor(){
+<span class="fc" id="L120">        StringBuilder stringBuilder = new StringBuilder();</span>
+<span class="fc bfc" id="L121" title="All 2 branches covered.">        for (int i = floor.getSize() - 1; i &gt;= 0; i--) {</span>
+<span class="fc" id="L122">            stringBuilder.append(String.format(&quot;%-4d&quot;, i));</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">            for (int j = 0; j &lt; floor.getSize(); j++) {</span>
+<span class="fc" id="L124">                Boolean temp = floor.getFloor().get(i).get(j);</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered.">                if (temp)</span>
+<span class="fc" id="L126">                    stringBuilder.append(String.format(&quot;%-4s&quot;, &quot;*&quot;));</span>
+                else
+<span class="fc" id="L128">                    stringBuilder.append(String.format(&quot;%-4s&quot;, &quot; &quot;));</span>
+            }
+<span class="fc" id="L130">            stringBuilder.append(&quot;\n&quot;);</span>
+        }
+<span class="fc" id="L132">        stringBuilder.append(String.format(&quot;%4s&quot;, &quot;&quot;));</span>
+<span class="fc bfc" id="L133" title="All 2 branches covered.">        for (int i = 0; i &lt; floor.getSize(); i++) {</span>
+<span class="fc" id="L134">            stringBuilder.append(String.format(&quot;%-4d&quot;, i));</span>
+        }
+<span class="fc" id="L136">        stringBuilder.append(&quot;\n&quot;);</span>
+<span class="fc" id="L137">        return stringBuilder.toString();</span>
+    }
+
+    public Pen getPen() {
+<span class="fc" id="L141">        return pen;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
