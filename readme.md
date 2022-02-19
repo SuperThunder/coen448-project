@@ -9,6 +9,7 @@
 - Setup a 'test all with coverage' JUnit test configuration (choose all in package)
 - Edit Configurations -> JUnit configurations -> modify options -> specify alternative coverage runner -> choose jacoco
 - In modify options, choose 'specify classes and packages' then add package. Add the entire com.coen448 package.
+- In modify options, enable 'use tracing'
 - Run your 'All in coen448-project' test suite
 - Coverage data can be found in run -> show coverage data
 - Coverage report in run -> generate coverage report
