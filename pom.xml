@@ -81,7 +81,9 @@
                     </targetClasses>
                     <targetTests>
                         <param>com.coen448.MutatorTests</param>
+                        <param>com.coen448.RobotControllerTest</param>
                     </targetTests>
+
                 </configuration>
                 <executions>
                     <execution>
