@@ -15,6 +15,8 @@ package com.coen448;
 
 import com.coen448.grid.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +27,8 @@ public class Main {
     public static void main(String[] args) throws Exception {
         System.out.println("COEN448 Project");
 
+        List<String> command_history = new ArrayList<>();
+
         Scanner stdin = new Scanner(System.in);
         //INSTANTIATE GRID / ROBOT OBJECTS HERE
         Controller controller = new Controller();
@@ -34,6 +38,8 @@ public class Main {
             //Get the input as a simple string to the end of the line
             System.out.println("Please enter a command: ");
             String input = stdin.nextLine();
+
+            command_history.add(input);
 
             //Send that to a new processor object that tells us what kind of input we received
             UserInputProcessor userInput = new UserInputProcessor(input);
@@ -95,6 +101,14 @@ public class Main {
                 //Unknown command
                 case Unknown:
                     break;
+
+                //Replay all commands entered by the user as a history
+                case Replay:
+                    System.out.println("Command history:");
+                    for(String el: command_history)
+                    {
+                        System.out.println(el);
+                    }
 
                 //Known command with invalid parameter
                 case Invalid:

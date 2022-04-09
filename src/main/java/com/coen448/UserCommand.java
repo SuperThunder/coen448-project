@@ -10,6 +10,7 @@ public enum UserCommand {
     Down, //D
     PrintPen, //C
     Initialize, //I
+    Replay, //H
     Unknown, //For case of user entering invalid command
     Invalid //For case of user entering valid command but invalid parameter
 }
