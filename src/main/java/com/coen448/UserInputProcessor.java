@@ -80,6 +80,11 @@ public class UserInputProcessor {
                 com = UserCommand.Stop;
                 break;
 
+            //Replay all commands so far
+            case "H":
+                com = UserCommand.Replay;
+                break;
+
             default:
                 System.out.println("Error: Unknown command: " + tokens[0]);
                 com = UserCommand.Unknown;

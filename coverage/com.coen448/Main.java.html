@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">All Tests Coverage Results</a> &gt; <a href="index.source.html" class="el_package">com.coen448</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">//COEN448 Project
+//Alexander Wolfe 40103773
+//Ahmed Ali 40102454
+
+//Tools used:
+//Java 11
+//IntelliJ
+//JUnit
+//JCoco
+//Trello: Project planning
+//Google Sheets: Requirement tracking
+
+
+package com.coen448;
+
+import com.coen448.grid.Controller;
+
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+<span class="nc" id="L22">public class Main {</span>
+<span class="nc" id="L23">    static Logger logger = Logger.getLogger(Main.class.getName());</span>
+
+    public static void main(String[] args) throws Exception {
+<span class="nc" id="L26">        System.out.println(&quot;COEN448 Project&quot;);</span>
+
+<span class="nc" id="L28">        Scanner stdin = new Scanner(System.in);</span>
+        //INSTANTIATE GRID / ROBOT OBJECTS HERE
+<span class="nc" id="L30">        Controller controller = new Controller();</span>
+
+        //Loop for user command input
+        while (true) {
+            //Get the input as a simple string to the end of the line
+<span class="nc" id="L35">            System.out.println(&quot;Please enter a command: &quot;);</span>
+<span class="nc" id="L36">            String input = stdin.nextLine();</span>
+
+            //Send that to a new processor object that tells us what kind of input we received
+<span class="nc" id="L39">            UserInputProcessor userInput = new UserInputProcessor(input);</span>
+
+<span class="nc bnc" id="L41" title="All 4 branches missed.">            if(userInput.getCommand() == UserCommand.Initialize || userInput.getCommand() == UserCommand.Move)</span>
+<span class="nc" id="L42">                logger.log(Level.INFO, &quot;main got user command: &quot; + userInput.getCommand().toString() + &quot; &quot; + userInput.getValue());</span>
+            else {
+<span class="nc" id="L44">                logger.log(Level.INFO, &quot;main got user command: &quot; + userInput.getCommand().toString());</span>
+            }
+
+            //CALL GRID / ROBOT CODE FROM HERE
+            //Check what kind of input received
+<span class="nc bnc" id="L49" title="All 12 branches missed.">            switch (userInput.getCommand()) {</span>
+                //Move
+                case Move:
+<span class="nc" id="L52">                    controller.move(userInput.getValue());</span>
+<span class="nc" id="L53">                    break;</span>
+
+                //Left
+                case Left:
+<span class="nc" id="L57">                    controller.left();</span>
+<span class="nc" id="L58">                    break;</span>
+
+                //Right
+                case Right:
+<span class="nc" id="L62">                    controller.right();</span>
+<span class="nc" id="L63">                    break;</span>
+
+                //Print the grid
+                case PrintGrid:
+<span class="nc" id="L67">                    controller.printGrid();</span>
+<span class="nc" id="L68">                    break;</span>
+
+                //Initialize
+                case Initialize:
+<span class="nc" id="L72">                    controller.initialize(userInput.getValue());</span>
+<span class="nc" id="L73">                    break;</span>
+
+                //Up (pen)
+                case Up:
+<span class="nc" id="L77">                    controller.up();</span>
+<span class="nc" id="L78">                    break;</span>
+
+                //Down (pen)
+                case Down:
+<span class="nc" id="L82">                    controller.down();</span>
+<span class="nc" id="L83">                    break;</span>
+
+                //Print pen position and status, robot facing direction
+                case PrintPen:
+<span class="nc" id="L87">                    System.out.println(controller.printPen());</span>
+<span class="nc" id="L88">                    break;</span>
+
+                //Stop Program
+                case Stop:
+<span class="nc" id="L92">                    System.exit(0);</span>
+<span class="nc" id="L93">                    break;</span>
+
+                //Unknown command
+                case Unknown:
+<span class="nc" id="L97">                    break;</span>
+
+                //Known command with invalid parameter
+                case Invalid:
+<span class="nc" id="L101">                    break;</span>
+
+                default:
+                    break;
+            }
+<span class="nc" id="L106">        }</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
