@@ -140,7 +140,7 @@ class UserInputProcessorTest {
     @Test
     void NonCommandLetters()
     {
-        UserInputProcessor u = new UserInputProcessor("h");
+        UserInputProcessor u = new UserInputProcessor("z");
         assertEquals(u.getCommand(), UserCommand.Unknown);
     }
 
